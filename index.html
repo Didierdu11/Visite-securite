@@ -35,12 +35,6 @@
   --color-corrige-text:#1d4ed8;
   --color-bad-bg:#fee2e2;
   --color-bad-text:#b91c1c;
-  --color-sev-minor-bg:#fef9c3;
-  --color-sev-minor-text:#854d0e;
-  --color-sev-major-bg:#fed7aa;
-  --color-sev-major-text:#9a3412;
-  --color-sev-urgent-bg:#fecaca;
-  --color-sev-urgent-text:#991b1b;
 }
 body{font-family:var(--font-main);background:var(--color-bg);color:var(--color-text);margin:0;padding:12px}
 .app{max-width:760px;margin:auto;background:var(--color-surface);padding:16px;border-radius:12px}
@@ -83,9 +77,6 @@ button:active{transform:scale(.98)}
 .bad{background:var(--color-bad-bg);color:var(--color-bad-text)}
 .good{background:var(--color-good-bg);color:var(--color-good-text)}
 .corrige{background:var(--color-corrige-bg);color:var(--color-corrige-text)}
-.sev-Mineur{background:var(--color-sev-minor-bg);color:var(--color-sev-minor-text)}
-.sev-Majeur{background:var(--color-sev-major-bg);color:var(--color-sev-major-text)}
-.sev-Urgent{background:var(--color-sev-urgent-bg);color:var(--color-sev-urgent-text)}
 .save-status{position:fixed;bottom:0;left:0;right:0;background:var(--color-success);color:#fff;text-align:center;padding:6px;font-size:.8em;font-weight:bold;z-index:999;display:none}
 .save-status.saving{background:#f59e0b}
 .save-status.error{background:var(--color-danger)}
@@ -117,7 +108,6 @@ button:active{transform:scale(.98)}
 .mic-btn{position:absolute;top:8px;right:8px;width:34px;height:34px;padding:0;margin:0;border-radius:50%;background:var(--color-primary-soft);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:1.05em;line-height:1}
 .mic-btn.recording{background:var(--color-danger);color:#fff;animation:mic-pulse 1.1s infinite}
 @keyframes mic-pulse{0%{box-shadow:0 0 0 0 rgba(185,28,28,.5)}70%{box-shadow:0 0 0 9px rgba(185,28,28,0)}100%{box-shadow:0 0 0 0 rgba(185,28,28,0)}}
-#severityWrap{display:none}
 .compare-box{margin-top:10px}
 .compare-buttons{display:flex;gap:8px}
 .compare-buttons button{flex:1;width:auto}
@@ -324,14 +314,6 @@ body{background:#f3f4f6;padding:0}
         <option value="Bonne pratique">👍 Bonne pratique</option>
       </select>
     </div>
-    <div id="severityWrap">
-      <label>Niveau de gravité</label>
-      <select id="severity">
-        <option value="Mineur">🟡 Mineur</option>
-        <option value="Majeur">🟠 Majeur</option>
-        <option value="Urgent">🔴 Urgent</option>
-      </select>
-    </div>
   </div>
   <label>Zone <span style="color:#b3261e">*</span></label>
   <select id="zoneSel"></select>
@@ -496,7 +478,6 @@ body{background:#f3f4f6;padding:0}
         </ul>
       </li>
       <li>Choisissez la <b>zone</b> de la photo dans la liste située sous l’action (voir § 12). Ce champ est <b>obligatoire</b> : sans zone, la photo ne peut pas être ajoutée au rapport.</li>
-      <li>Pour un point <b>"A corriger"</b>, le <b>niveau de gravité</b> apparaît à droite de l’action :  <span class="badge sev-Mineur">🟡 Mineur</span> <span class="badge sev-Majeur">🟠 Majeur</span> <span class="badge sev-Urgent">🔴 Urgent</span>.</li>
       <li>Vous pouvez aussi ajouter une <b>photo de comparaison</b> (avant/après, autre angle) avant de valider : <b>📷 Prendre une 2e photo</b> ou <b>🖼️ Choisir une 2e photo</b>, puis <b>🗑 Retirer</b> si besoin de l'enlever. Elle apparaîtra à côté de la photo principale dans la liste et dans les exports.</li>
       <li>Cliquez sur <b>✅ Ajouter cette photo au rapport</b> pour l'enregistrer dans la liste.</li>
     </ul>
@@ -517,10 +498,10 @@ body{background:#f3f4f6;padding:0}
     <p>Le rapport est sauvegardé automatiquement sur l'appareil au fur et à mesure de la saisie. Vous pouvez fermer la page et reprendre plus tard, tant que vous utilisez le même téléphone, le même navigateur et le même site.</p>
     <p><b>🆕 Nouveau rapport</b> efface définitivement la sauvegarde en cours et repart d'un rapport vide.</p>
 
-    <h3>8. Sauvegarde partagée Supabase</h3><p>Les deux exports Excel placent la date de visite avant le numéro, sous forme de date Excel au format jj/mm/aaaa.</p>
+    <h3>8. Sauvegarde partagée Supabase</h3><p>Les deux exports Excel présentent la date de visite sous forme de date Excel au format jj/mm/aaaa, et les deux noms regroupés dans une seule colonne <b>Nom 1 / Nom 2</b>.</p>
     <p>Lorsque vous cliquez sur <b>📊 Excel</b>, la visite est également enregistrée dans la base Supabase partagée. Aucune connexion ni compte utilisateur n'est demandé.</p>
     <p>Si une visite existe déjà pour la même date, la nouvelle visite est tout de même enregistrée et le champ <b>Doublon</b> est mis à <b>OUI</b>.</p>
-    <p>Le bouton <b>🗄️ Excel base complète</b> télécharge toutes les visites enregistrées dans Supabase, avec la date en première colonne, le numéro, le champ Doublon, les commentaires, actions, gravités et les photos principales et de comparaison intégrées. Les liens restent disponibles. Une connexion Internet est nécessaire et un avertissement signale les photos indisponibles.</p>
+    <p>Le bouton <b>🗄️ Excel base complète</b> télécharge toutes les visites enregistrées dans Supabase, avec le numéro, la date, la colonne Nom 1 / Nom 2, la zone, le champ Doublon, « Fait par », les commentaires, les actions et les photos principales et de comparaison intégrées. Les liens restent disponibles. Une connexion Internet est nécessaire et un avertissement signale les photos indisponibles.</p>
     <p>Les photos sont envoyées dans le compartiment Supabase Storage <code>visites</code> ; seuls leurs liens sont conservés dans la base de données.</p>
 
     <h3>9. Mode hors ligne et mise à jour</h3>
@@ -568,7 +549,7 @@ body{background:#f3f4f6;padding:0}
       <li>La liste est <b>partagée</b> : après le mot de passe, elle est enregistrée puis publiée sur GitHub, et se retrouve sur tous les appareils d’ici environ une minute (à la prochaine ouverture de l’application). La version de l’application avance alors automatiquement, ce qui déclenche le message de mise à jour.</li>
       <li><b>Connexion GitHub</b> : onglet <b>🔗 GitHub</b>, à renseigner une seule fois sur l’appareil de l’administrateur. La liste est publiée dans son propre fichier (<code>zones.json</code>), différent de celui de l’aide-mémoire. Si l’envoi échoue, ou sans connexion, la liste reste sur l’appareil et un bandeau propose <b>↻ Republier</b>.</li>
       <li>Les photos déjà prises gardent leur zone, même si elle est ensuite retirée de la liste.</li>
-      <li>La zone apparaît dans la liste des photos, dans le fichier <b>📊 Excel</b> (colonnes : N°, Date de visite, Zone, Commentaire, Action, Gravité, Photo, Photo après), dans le <b>📄 PDF</b> et dans <b>🗄️ Excel base complète</b>.</li>
+      <li>La zone apparaît dans la liste des photos, dans le fichier <b>📊 Excel</b> (colonnes : N°, Date de visite, Nom 1 / Nom 2, Zone, Commentaire, Action, Photo, Photo après), dans le <b>📄 PDF</b> et dans <b>🗄️ Excel base complète</b>.</li>
     </ul>
 
     <h3>À savoir</h3>
@@ -636,7 +617,7 @@ async function saveVisitToCloud(q,photoList){
       const p=photoList[i];
       const url=await uploadCloudPhoto(p.image,q.date,i+1);
       const url2=await uploadCloudPhoto(p.image2,q.date,i+1+'-comparaison');
-      cloudPhotos.push({comment:p.comment||'',action:p.action||'',severity:p.severity||'',zone:zoneOf(p),photo_url:url,compare_url:url2});
+      cloudPhotos.push({comment:p.comment||'',action:p.action||'',zone:zoneOf(p),photo_url:url,compare_url:url2});
     }
     const {error}=await supa.from('visites').insert({
       date_visite:q.date,
@@ -1280,7 +1261,6 @@ $('add').onclick=()=>{
     image2:compareImage,
     comment:$('comment').value||'Sans commentaire',
     action:$('action').value,
-    severity:$('action').value==='A corriger'?$('severity').value:null,
     zone:$('zoneSel').value||''
   };
   if(editingIndex>=0){
@@ -1292,8 +1272,6 @@ $('add').onclick=()=>{
   }
   $('comment').value='';
   $('action').value='A corriger';
-  $('severity').value='Mineur';
-  toggleSeverity();
   locFillSelect('');
   compareImage=null;
   $('comparePreviewImg').src='';
@@ -1313,8 +1291,6 @@ function editPhoto(i){
   editingIndex=i;
   $('comment').value=v.comment==='Sans commentaire'?'':v.comment;
   $('action').value=v.action;
-  $('severity').value=v.severity||'Mineur';
-  toggleSeverity();
   locFillSelect(zoneOf(v));
   compareImage=v.image2||null;
   if(compareImage){
@@ -1490,16 +1466,9 @@ window.addEventListener('online',zonesFetch);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('setOverlay').classList.contains('open')&&$('pwAsk').hidden)set(false);});
 })();
 
-/* ========== Niveau de gravité (visible seulement pour "A corriger") ========== */
-function toggleSeverity(){
-  $('severityWrap').style.display=$('action').value==='A corriger'?'block':'none';
-}
-$('action').addEventListener('change',toggleSeverity);
-toggleSeverity();
-
 /* ========== Render photo list ========== */
 function render(){
-  $('list').innerHTML=photos.map((v,i)=>`<div class="card"><div class="card-photos${v.image2?' has-compare':''}"><img src="${v.image}" alt="Photo"${v.image2?' title="Photo principale"':''}>${v.image2?`<img src="${v.image2}" alt="Photo comparaison" title="Photo de comparaison">`:''}</div><div><b>Photo ${i+1}</b><small>${v.comment.replace(/</g,'&lt;')}</small>${zoneOf(v)?`<small>📍 ${zoneOf(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</small>`:''}<small><span class="badge ${v.action==='Corrigé'?'corrige':v.action==='Bonne pratique'?'good':'bad'}">${v.action==='Corrigé'?'✅':v.action==='Bonne pratique'?'👍':'⚠️'} ${v.action}</span>${v.action==='A corriger'&&v.severity?` <span class="badge sev-${v.severity}">${v.severity==='Urgent'?'🔴':v.severity==='Majeur'?'🟠':'🟡'} ${v.severity}</span>`:''}</small></div><div class="card-actions"><button class="edit" data-edit="${i}">✏️ Éditer</button><button class="del" data-i="${i}">Supprimer</button></div></div>`).join('')||'<p class="hint">Aucune photo ajoutée.</p>';
+  $('list').innerHTML=photos.map((v,i)=>`<div class="card"><div class="card-photos${v.image2?' has-compare':''}"><img src="${v.image}" alt="Photo"${v.image2?' title="Photo principale"':''}>${v.image2?`<img src="${v.image2}" alt="Photo comparaison" title="Photo de comparaison">`:''}</div><div><b>Photo ${i+1}</b><small>${v.comment.replace(/</g,'&lt;')}</small>${zoneOf(v)?`<small>📍 ${zoneOf(v).replace(/&/g,'&amp;').replace(/</g,'&lt;')}</small>`:''}<small><span class="badge ${v.action==='Corrigé'?'corrige':v.action==='Bonne pratique'?'good':'bad'}">${v.action==='Corrigé'?'✅':v.action==='Bonne pratique'?'👍':'⚠️'} ${v.action}</span></small></div><div class="card-actions"><button class="edit" data-edit="${i}">✏️ Éditer</button><button class="del" data-i="${i}">Supprimer</button></div></div>`).join('')||'<p class="hint">Aucune photo ajoutée.</p>';
   $('exports').style.display=photos.length?'grid':'none';
   updateSummary();
   document.querySelectorAll('.del').forEach(b=>b.onclick=()=>{
@@ -1704,29 +1673,23 @@ $('exportXlsx').onclick=async()=>{
   ws.getCell('A3').value='Date : '+q.date+(q.time?' à '+q.time:'');
   ws.getCell('A4').value='Commentaire général : '+q.comment;
   ws.addRow([]);
-  ws.addRow(['N°','Date de visite','Zone','Commentaire','Action','Gravité','Photo','Photo après']);
-  ws.columns=[{width:7},{width:16},{width:22},{width:50},{width:18},{width:14},{width:34},{width:34}];
+  ws.addRow(['N°','Date de visite','Nom 1 / Nom 2','Zone','Commentaire','Action','Photo','Photo après']);
+  ws.columns=[{width:7},{width:16},{width:26},{width:22},{width:50},{width:18},{width:34},{width:34}];
   let h=ws.getRow(6);
   h.font={bold:true,color:{argb:'FFFFFFFF'}};
   h.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FF377CC8'}};
-  const sevColors={Mineur:{bg:'FFFEF9C3',text:'FF854D0E'},Majeur:{bg:'FFFED7AA',text:'FF9A3412'},Urgent:{bg:'FFFECACA',text:'FF991B1B'}};
   photos.forEach((v,i)=>{
     let r=7+i;
     ws.getRow(r).height=165;
     ws.getCell(`A${r}`).value=i+1;
     ws.getCell(`B${r}`).value=new Date(q.date+'T00:00:00Z');
     ws.getCell(`B${r}`).numFmt='dd/mm/yyyy';
-    ws.getCell(`D${r}`).value=v.comment;
-    ws.getCell(`E${r}`).value=v.action;
-    ws.getCell(`E${r}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:v.action==='Corrigé'?'FFDBEAFE':v.action==='Bonne pratique'?'FFDCFCE7':'FFFEE2E2'}};
-    ws.getCell(`E${r}`).font={bold:true,color:{argb:v.action==='Corrigé'?'FF1D4ED8':v.action==='Bonne pratique'?'FF15803D':'FFB91C1C'}};
-    if(v.action==='A corriger'&&v.severity){
-      let sc=sevColors[v.severity]||sevColors.Mineur;
-      ws.getCell(`F${r}`).value=v.severity;
-      ws.getCell(`F${r}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:sc.bg}};
-      ws.getCell(`F${r}`).font={bold:true,color:{argb:sc.text}};
-    }
-    ws.getCell(`C${r}`).value=zoneOf(v);
+    ws.getCell(`C${r}`).value=q.names;
+    ws.getCell(`E${r}`).value=v.comment;
+    ws.getCell(`F${r}`).value=v.action;
+    ws.getCell(`F${r}`).fill={type:'pattern',pattern:'solid',fgColor:{argb:v.action==='Corrigé'?'FFDBEAFE':v.action==='Bonne pratique'?'FFDCFCE7':'FFFEE2E2'}};
+    ws.getCell(`F${r}`).font={bold:true,color:{argb:v.action==='Corrigé'?'FF1D4ED8':v.action==='Bonne pratique'?'FF15803D':'FFB91C1C'}};
+    ws.getCell(`D${r}`).value=zoneOf(v);
     ['A','B','C','D','E','F','G','H'].forEach(k=>ws.getCell(`${k}${r}`).alignment={vertical:'top',wrapText:true});
     let id=wb.addImage({base64:v.image,extension:'jpeg'});
     ws.addImage(id,{tl:{col:6,row:r-1},ext:{width:210,height:155}});
@@ -1759,8 +1722,8 @@ $('exportAllXlsx').onclick=async()=>{
       visits.push(...(data||[]));if(!data||data.length<500)break;
     }
     const wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('Toutes les visites');
-    ws.columns=[7,16,22,50,18,14,34,34,12,24,12,45,45,45,38].map(width=>({width}));
-    ws.addRow(['N°','Date de visite','Zone','Commentaire','Action','Gravité','Photo','Photo après','Doublon','Fait par','Heure','Commentaire général','Lien photo','Lien comparaison','ID visite']);
+    ws.columns=[7,16,26,22,50,18,34,34,12,24,12,45,45,45,38].map(width=>({width}));
+    ws.addRow(['N°','Date de visite','Nom 1 / Nom 2','Zone','Commentaire','Action','Photo','Photo après','Doublon','Fait par','Heure','Commentaire général','Lien photo','Lien comparaison','ID visite']);
     ws.getRow(1).font={bold:true,color:{argb:'FFFFFFFF'}};
     ws.getRow(1).fill={type:'pattern',pattern:'solid',fgColor:{argb:'FF1565C0'}};
     ws.views=[{state:'frozen',ySplit:1}];
@@ -1783,7 +1746,7 @@ $('exportAllXlsx').onclick=async()=>{
       const list=Array.isArray(v.photos)&&v.photos.length?v.photos:[{}];
       for(let i=0;i<list.length;i++){
         const p=list[i];
-        const row=ws.addRow([i+1,new Date(v.date_visite+'T00:00:00Z'),zoneOf(p),p.comment||'',p.action||'',p.severity||'','','',v.doublon?'OUI':'NON',v.fait_par||'',v.heure||'',v.commentaire_general||'',p.photo_url||'',p.compare_url||'',v.id]);
+        const row=ws.addRow([i+1,new Date(v.date_visite+'T00:00:00Z'),v.fait_par||'',zoneOf(p),p.comment||'',p.action||'','','',v.doublon?'OUI':'NON',v.fait_par||'',v.heure||'',v.commentaire_general||'',p.photo_url||'',p.compare_url||'',v.id]);
         row.getCell(2).numFmt='dd/mm/yyyy';row.height=165;
         row.eachCell({includeEmpty:true},cell=>cell.alignment={vertical:'top',wrapText:true});
         cloudMsg('Intégration des photos : ligne '+(row.number-1)+'…');
@@ -1885,16 +1848,6 @@ $('exportPdf').onclick=()=>{
     pdf.setFontSize(8);
     pdf.setFont('helvetica','bold');
     pdf.text((ok?'✓ ':'! ')+v.action,colX+3,y+48.5);
-    if(v.action==='A corriger'&&v.severity){
-      const sevRgb={Mineur:[254,249,195,133,77,14],Majeur:[254,215,170,154,52,18],Urgent:[254,202,202,153,27,27]};
-      let sc=sevRgb[v.severity]||sevRgb.Mineur;
-      pdf.setFillColor(sc[0],sc[1],sc[2]);
-      pdf.roundedRect(colX+37,y+43,32,8,2,2,'F');
-      pdf.setTextColor(sc[3],sc[4],sc[5]);
-      pdf.setFontSize(8);
-      pdf.setFont('helvetica','bold');
-      pdf.text(v.severity,colX+40,y+48.5);
-    }
     if(zoneOf(v)){
       pdf.setTextColor(70);
       pdf.setFontSize(8);
@@ -1926,8 +1879,6 @@ $('newReport').onclick=()=>{
     $('reportTime').value='';
     $('reportComment').value='';
     $('action').value='A corriger';
-    $('severity').value='Mineur';
-    toggleSeverity();
     locFillSelect('');
     compareImage=null;
     $('comparePreviewImg').src='';
@@ -1948,7 +1899,7 @@ window.addEventListener('pagehide',stopCamera);
 </script>
 
 <script>
-const APP_VERSION='v2.0.6';const APP_DATE='17/11/2026';
+const APP_VERSION='v2.0.7';const APP_DATE='19/11/2026';
 document.querySelector('.copyright').innerHTML='© By D@V • '+APP_VERSION+' • '+APP_DATE+' • '+'<a href="https://didierdu11.github.io/Mes-projets/" target="_blank" rel="noopener">Mes applications</a>';
 
 if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){
